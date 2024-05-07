@@ -8,7 +8,12 @@ const Confirmation = () => {
     if (!bookingDetails) {
         return <div>Loading...</div>;
     }
+    const checkInDate = new Date(bookingDetails.checkInDate);
+    const checkOutDate = new Date(bookingDetails.checkOutDate);
 
+    const durationOfStay = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+
+    const totalPrice = selectedHotel.price * bookingDetails.numRooms * bookingDetails.numGuests * durationOfStay;
     return (
         <div className="container">
             <h2 className="mt-4">Booking Confirmation</h2>
@@ -20,6 +25,7 @@ const Confirmation = () => {
             <p>Check-out Date: {bookingDetails.checkOutDate}</p>
             <p>Number of Rooms: {bookingDetails.numRooms}</p>
             <p>Number of Guests: {bookingDetails.numGuests}</p>
+            <p>Total Price: ${totalPrice}</p>
         </div>
     );
 };
